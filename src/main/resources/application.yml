@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: demo-education
+  active-profiles: dev

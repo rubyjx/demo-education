@@ -1,0 +1,26 @@
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+querydsl {
+    library "com.querydsl:querydsl-apt:${querydsl_version}"
+    jpa = true
+    querydslSourcesDir = file(generated_source_dir)
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+dependencies {
+    annotationProcessor("com.querydsl:querydsl-apt:${querydsl_version}")
+
+    implementation("com.querydsl:querydsl-apt:${querydsl_version}")
+    implementation("com.querydsl:querydsl-jpa:${querydsl_version}")
+    implementation("com.querydsl:querydsl-core:${querydsl_version}")
+    implementation("com.cosium.spring.data:spring-data-jpa-entity-graph:${spring_data_jpa_entity_graph_version}")
+}
+
+tasks.withType(Checkstyle) {
+    exclude '**/Q*.java'
+}
